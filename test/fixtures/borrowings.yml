@@ -1,0 +1,11 @@
+active:
+  user: alice
+  book: dune
+  borrowed_at: <%= 2.days.ago.to_fs(:db) %>
+  returned_at:
+
+returned:
+  user: bob
+  book: emma
+  borrowed_at: <%= 10.days.ago.to_fs(:db) %>
+  returned_at: <%= 5.days.ago.to_fs(:db) %>

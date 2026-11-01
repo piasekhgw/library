@@ -1,0 +1,9 @@
+dune:
+  serial_number: "200001"
+  title: Dune
+  author: Frank Herbert
+
+emma:
+  serial_number: "200002"
+  title: Emma
+  author: Jane Austen
