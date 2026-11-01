@@ -7,3 +7,9 @@ emma:
   serial_number: "200002"
   title: Emma
   author: Jane Austen
+
+archived:
+  serial_number: "200003"
+  title: Old Atlas
+  author: Unknown
+  deleted_at: <%= 1.day.ago.to_fs(:db) %>
