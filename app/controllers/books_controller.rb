@@ -2,15 +2,15 @@ class BooksController < ApplicationController
   before_action :require_card_number_key, only: :update
 
   rescue_from BorrowBook::AlreadyBorrowed do
-    render_conflict("Book is already borrowed")
+    render_conflict(I18n.t("books.errors.already_borrowed"))
   end
 
   rescue_from BorrowBook::ReaderNotFound do
-    render json: { errors: { card_number: ["not found"] } }, status: :unprocessable_content
+    render json: { errors: { card_number: [I18n.t("books.errors.card_number_not_found")] } }, status: :unprocessable_content
   end
 
   rescue_from ReturnBook::NotBorrowed do
-    render_conflict("Book is not borrowed")
+    render_conflict(I18n.t("books.errors.not_borrowed"))
   end
 
   def index
@@ -57,7 +57,7 @@ class BooksController < ApplicationController
     # Lock the row so a concurrent borrow cannot slip in between the check and the delete.
     book.with_lock do
       if book.borrowed?
-        render_conflict("Book is currently borrowed")
+        render_conflict(I18n.t("books.errors.currently_borrowed"))
       else
         book.update!(deleted_at: Time.current)
         head :no_content
