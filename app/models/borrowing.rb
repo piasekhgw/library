@@ -1,8 +1,12 @@
 class Borrowing < ApplicationRecord
+  LOAN_DAYS = 30
+  DUE_SOON_REMINDER_DAYS_BEFORE = 3
+
   belongs_to :user
   belongs_to :book
 
   scope :active, -> { where(returned_at: nil) }
+  scope :due_on, ->(date) { where(borrowed_at: (date - LOAN_DAYS).all_day) }
 
   validates :book_id, uniqueness: { conditions: -> { active } }, if: :active?
   validate :returned_at_not_before_borrowed_at

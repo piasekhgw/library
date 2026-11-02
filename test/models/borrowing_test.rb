@@ -21,6 +21,15 @@ class BorrowingTest < ActiveSupport::TestCase
     assert_not_includes Borrowing.active, borrowings(:returned)
   end
 
+  test "due_on scope returns borrowings due back on the given day" do
+    borrowing = borrowings(:active)
+    borrowing.update!(borrowed_at: Time.zone.local(2026, 10, 5, 23, 59))
+
+    assert_includes Borrowing.due_on(Date.new(2026, 11, 4)), borrowing
+    assert_not_includes Borrowing.due_on(Date.new(2026, 11, 3)), borrowing
+    assert_not_includes Borrowing.due_on(Date.new(2026, 11, 5)), borrowing
+  end
+
   test "book cannot be actively borrowed twice" do
     borrowing = Borrowing.new(user: users(:bob), book: books(:dune))
 

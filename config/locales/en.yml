@@ -36,3 +36,14 @@ en:
       not_borrowed: "Book is not borrowed"
       currently_borrowed: "Book is currently borrowed"
       card_number_not_found: "not found"
+  borrowing_mailer:
+    due_soon:
+      subject: "Reminder: return \"%{title}\" by %{due_on}"
+      greeting: "Hello %{name},"
+      body: "\"%{title}\" by %{author} is due back on %{due_on}. Please return it to the library by then."
+      signature: "Your library"
+    due_today:
+      subject: "Due today: please return \"%{title}\""
+      greeting: "Hello %{name},"
+      body: "\"%{title}\" by %{author} is due back today (%{due_on}). Please return it to the library today."
+      signature: "Your library"

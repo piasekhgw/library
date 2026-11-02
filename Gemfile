@@ -46,6 +46,11 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
+group :development do
+  # Opens emails in the browser instead of delivering them
+  gem "letter_opener"
+end
+
 group :test do
   # Minitest 6 dropped minitest/mock; this provides stub and mock again
   gem "minitest-mock"
