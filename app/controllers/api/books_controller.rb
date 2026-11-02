@@ -1,4 +1,4 @@
-class BooksController < ApplicationController
+class Api::BooksController < ApplicationController
   before_action :require_card_number_key, only: :update
 
   rescue_from BorrowBook::AlreadyBorrowed do
@@ -29,7 +29,7 @@ class BooksController < ApplicationController
     book = Book.new(book_params)
 
     if book.save
-      render json: BookSerializer.new(book), status: :created, location: book
+      render json: BookSerializer.new(book), status: :created, location: api_book_url(book)
     else
       render json: { errors: book.errors }, status: :unprocessable_content
     end

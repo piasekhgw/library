@@ -29,28 +29,28 @@ start, so dates are always relative to "now" and the examples below always work.
 
 ```sh
 # list books (status: available / borrowed)
-curl localhost:3000/books
+curl localhost:3000/api/books
 
 # book details with borrowing history
-curl localhost:3000/books/1
+curl localhost:3000/api/books/1
 
 # create a book
-curl -X POST localhost:3000/books \
+curl -X POST localhost:3000/api/books \
   -H 'Content-Type: application/json' \
   -d '{"book": {"serial_number": "300001", "title": "Emma", "author": "Jane Austen"}}'
 
 # borrow a book (id 5 is available) with a reader's card number
-curl -X PATCH localhost:3000/books/5 \
+curl -X PATCH localhost:3000/api/books/5 \
   -H 'Content-Type: application/json' \
   -d '{"card_number": "100001"}'
 
 # return it (card_number key present and null)
-curl -X PATCH localhost:3000/books/5 \
+curl -X PATCH localhost:3000/api/books/5 \
   -H 'Content-Type: application/json' \
   -d '{"card_number": null}'
 
 # delete a book (soft delete, not allowed while borrowed)
-curl -X DELETE localhost:3000/books/6
+curl -X DELETE localhost:3000/api/books/6
 ```
 
 Errors: `404` unknown book, `409` already borrowed / not borrowed / currently

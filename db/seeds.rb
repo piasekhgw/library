@@ -17,7 +17,7 @@ books = [
   Book.find_or_initialize_by(id: attributes[:id]).tap { |book| book.update!(attributes.merge(deleted_at: nil)) }
 end
 
-# Books have fixed ids, so move the sequence past them or the first POST /books would collide.
+# Books have fixed ids, so move the sequence past them or the first POST /api/books would collide.
 Book.connection.reset_pk_sequence!(Book.table_name)
 
 nineteen_eighty_four, pride, dune, hobbit = books
