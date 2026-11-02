@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bin/rails db:prepare && bin/rails server -b 0.0.0.0"]
+CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bin/rails db:prepare && bin/rails db:seed && bin/rails server -b 0.0.0.0"]
