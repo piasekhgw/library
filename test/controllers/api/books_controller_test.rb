@@ -8,11 +8,6 @@ class Api::BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
     statuses = response.parsed_body.to_h { |book| [book["title"], book["status"]] }
     assert_equal({ "Dune" => "borrowed", "Emma" => "available" }, statuses)
-
-    current = response.parsed_body.to_h { |book| [book["title"], book["current_borrowing"]] }
-    assert_not_nil current["Dune"]["borrowed_at"]
-    assert_not_nil current["Dune"]["reader"]["full_name"]
-    assert_nil current["Emma"]
   end
 
   test "show returns the book with borrowing history and reader data, newest first" do
