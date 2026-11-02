@@ -72,5 +72,6 @@ browser). Without Docker, `letter_opener` opens them in the browser directly.
 ## Tests
 
 ```sh
+docker compose exec -e RAILS_ENV=test web bin/rails db:prepare
 docker compose exec web bin/rails test
 ```
