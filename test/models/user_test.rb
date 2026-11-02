@@ -38,6 +38,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not malformed.valid?
   end
 
+  test "email is normalized, so uniqueness ignores case and surrounding spaces" do
+    duplicate = User.new(card_number: "300001", full_name: "Carol Reader", email: " #{users(:alice).email.upcase} ")
+
+    assert_equal users(:alice).email, duplicate.email
+    assert_not duplicate.valid?
+    assert duplicate.errors.of_kind?(:email, :taken)
+  end
+
   test "has many borrowed books through borrowings" do
     assert_includes users(:alice).books, books(:dune)
   end
