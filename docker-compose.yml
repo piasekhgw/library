@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      retries: 10
+
+  web:
+    build: .
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432
+      QUEUE_DATABASE_URL: postgres://postgres:postgres@db:5432
+      LAUNCHY_DRY_RUN: "true"
+      SOLID_QUEUE_IN_PUMA: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
