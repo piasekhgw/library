@@ -8,10 +8,17 @@ class BookSerializer
   end
 
   def attributes
-    { "id" => nil, "serial_number" => nil, "title" => nil, "author" => nil, "status" => nil }
+    { "id" => nil, "serial_number" => nil, "title" => nil, "author" => nil, "status" => nil, "current_borrowing" => nil }
   end
 
   def status
     @book.borrowed? ? "borrowed" : "available"
+  end
+
+  def current_borrowing
+    borrowing = @book.active_borrowing
+    return if borrowing.nil?
+
+    BorrowingSerializer.new(borrowing)
   end
 end

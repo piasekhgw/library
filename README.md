@@ -28,7 +28,7 @@ start, so dates are always relative to "now" and the examples below always work.
 ## API
 
 ```sh
-# list books (status: available / borrowed)
+# list books (status: available / borrowed; current_borrowing: when and by whom, or null)
 curl localhost:3000/api/books
 
 # book details with borrowing history

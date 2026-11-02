@@ -14,7 +14,7 @@ class Api::BooksController < ApplicationController
   end
 
   def index
-    books = Book.not_deleted.includes(:active_borrowing).order(:title)
+    books = Book.not_deleted.includes(active_borrowing: :user).order(:title)
 
     render json: books.map { |book| BookSerializer.new(book) }
   end
